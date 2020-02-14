@@ -1,0 +1,54 @@
+library(igraph)
+
+m1=as.matrix(old)
+
+m2=as.matrix(young)
+
+m3=as.matrix(oldthal)
+
+m4=as.matrix(youngthal)
+
+net1=graph.adjacency(m1,mode="directed",weighted=TRUE,diag=FALSE)
+net2=graph.adjacency(m2,mode="directed",weighted=TRUE,diag=FALSE)
+net3=graph.adjacency(m3,mode="directed",weighted=TRUE,diag=FALSE)
+net4=graph.adjacency(m4,mode="directed",weighted=TRUE,diag=FALSE)
+
+
+V(net1)$color=V(net1)$name #assign the "Sex" attribute as the vertex color
+V(net1)$color=gsub("SN","#FEE391",V(net1)$color) #Females will be red
+V(net1)$color=gsub("DMN","#FCBBA1",V(net1)$color) #Males will be blue
+V(net1)$color=gsub("CEN","#C7E9C0",V(net1)$color) #Males will be blue
+V(net1)$size=degree(net1)*10
+
+V(net2)$color=V(net2)$name #assign the "Sex" attribute as the vertex color
+V(net2)$color=gsub("SN","#FEC44F",V(net2)$color) #Females will be red
+V(net2)$color=gsub("DMN","#CB181D",V(net2)$color) #Males will be blue
+V(net2)$color=gsub("CEN","#238B45",V(net2)$color) #Males will be blue
+V(net2)$size=degree(net2)*10
+
+V(net3)$color=V(net3)$name #assign the "Sex" attribute as the vertex color
+V(net3)$color=gsub("SN","#FEE391",V(net3)$color) #Females will be red
+V(net3)$color=gsub("DMN","#FCBBA1",V(net3)$color) #Males will be blue
+V(net3)$color=gsub("CEN","#C7E9C0",V(net3)$color) #Males will be blue
+V(net3)$color=gsub("THAL","#DADAEB",V(net3)$color) #Males will be blue
+V(net3)$size=degree(net3)*10
+
+V(net4)$color=V(net4)$name #assign the "Sex" attribute as the vertex color
+V(net4)$color=gsub("SN","#FEC44F",V(net4)$color) #Females will be red
+V(net4)$color=gsub("DMN","#CB181D",V(net4)$color) #Males will be blue
+V(net4)$color=gsub("CEN","#238B45",V(net4)$color) #Males will be bluec
+V(net4)$color=gsub("THAL","#6A51A3",V(net4)$color) #Males will be blue
+V(net4)$size=degree(net4)*10
+
+y=c(0.5161790 ,0.3524168, 1.3399701, 0.7085314, 0.9407466, -2.0059479)
+x= c(11.24435, 5.323859, 17.64407, 5.510216, 12.22767, 7.489824, 18.98911, 7.934645)
+coords2=matrix(x,nrow=4,ncol=2, byrow=TRUE)  
+coords=matrix(y,nrow=3,ncol=2, byrow=TRUE)  
+
+
+par(mfrow=c(2,2))
+set.seed(123)
+plot.igraph(net1,vertex.label=V(net1)$name,layout=coords,vertex.size=40, vertex.label.color="black",edge.color="black",edge.width=E(net1)$weight*2.0, edge.arrow.size=1,edge.curved=TRUE,main="A. Between RSN´s connectivity for old population")
+plot.igraph(net2,vertex.label=V(net2)$name,layout=coords,vertex.size=40, vertex.label.color="black",edge.color="black",edge.width=E(net2)$weight*2.0, edge.arrow.size=1,edge.curved=TRUE,main="B.Between RSN´s connectivity for young population")
+plot.igraph(net3,vertex.label=V(net3)$name,layout=coords2,vertex.size=40, vertex.label.color="black",edge.color="black",edge.width=E(net3)$weight*2.0, edge.arrow.size=1,edge.curved=TRUE,main="C.Between RSN´s and Thalamus´s connectivity for old population")
+plot.igraph(net4,vertex.label=V(net4)$name,layout=coords2,vertex.size=40, vertex.label.color="black",edge.color="black",edge.width=E(net4)$weight*2.0, edge.arrow.size=1,edge.curved=TRUE,main="D.Between RSN´s and Thalamus´s connectivity for young population")
